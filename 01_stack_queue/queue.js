@@ -4,23 +4,23 @@ class Queue {
     }
 
    print = () => {
-    console.log(this.array);
+    console.log(this.array);//распечатать в консоль массив
    }
    
    enqueue = (...values) => {
-    return this.array.push(...values);
+    return this.array.push(...values);//добавить в конец очереди
    }
 
    dequeue = () => {
-    return this.array.length === 0 ? console.log('Очередь пуста!') : this.array.shift();
+    return this.array.length === 0 ? console.log('Очередь пуста!') : this.array.shift();//вывести с начала очереди
    }
 
    isEmpty = () => {
-    return this.array.length === 0 ? console.log('Очередь пуста!') : console.log(`Количество элементов в очереди: ${this.array.length}`)
+    return this.array.length === 0 ? console.log('Очередь пуста!') : console.log(`Количество элементов в очереди: ${this.array.length}`)//проверить очередь на пустоту
    }
 
    size = () => {
-    return this.array.length;
+    return this.array.length;//вернуть размер
    }
 }
 
