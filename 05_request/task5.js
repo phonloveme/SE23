@@ -1,18 +1,22 @@
-const { patch } = require('request');
 const request = require('sync-request');
-const url = 'https://pcoding.ru/txt/labrab04-3.txt';
 
-// Получаем данные из URL
+// Загрузка данных
+const url = 'https://pcoding.ru/txt/labrab04-3.txt';
 const response = request('GET', url);
 const data = response.getBody('utf8');
 
-// Разделяем данные по точке с запятой и извлекаем названия языков
-const languages = data.split('\n');
-const languagesName = languages.map(item => {
-    const parts = item.split(';');
-    return parts.length > 1 ? parts[1].trim() : null;
-}).filter(name => name !== null);
+// Разделение данных на строки и преобразование в массив объектов
+const lines = data.trim().split('\n');
+const languages = lines.map(line => {
+    const [percentage, lang] = line.split(';');
+    const rating = parseFloat(percentage.replace(',', '.').replace('%', '')); // Преобразование в число
+    return { rating, lang };
+});
 
-languagesName.sort().forEach(element => {
-    console.log(element);
+// Сортировка по убыванию рейтинга
+languages.sort((a, b) => b.rating - a.rating);
+
+// Вывод в две колонки
+languages.forEach(({ rating, lang }) => {
+    console.log(`${rating.toFixed(2)}%  ${lang}`);
 });
